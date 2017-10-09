@@ -1,10 +1,5 @@
-// PSEUDO-CODE TO DO:
-// ====================================================================================
-// Add form that gets user input and adds a new button dynamically to the topics array.
-// Create function that takes each topic in the array (including user input) and reloads the buttons on the page.
-
 // Create array of tv shows.
-var topics = ["the office", "silicon valley", "vice principals", "workaholics", "mr. robot", "the newsroom", "halt and catch fire", "people of earth"];
+var topics = ["the office", "silicon valley", "vice principals", "workaholics", "mr. robot", "the newsroom", "halt and catch fire", "people of earth", "impractical jokers"];
 
 var offset = 0; // Initialize image results returned to 0. This will be changed later to return different sets of images.
 
@@ -107,12 +102,6 @@ $(".prev").on("click", function() {
 
 		callAPI(showName);
 	}
-});
-
-$(".tvShow").on("click", function() {
-	// Store the show-name attribute in a variable to use in the API query.
-	showName = $(this).attr("show-name");
-	callAPI(showName);
 });
 
 // When Search button is clicked, perform this function...
