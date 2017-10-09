@@ -1,5 +1,5 @@
 // Create array of tv shows.
-var topics = ["the office", "silicon valley", "vice principals", "workaholics", "mr. robot", "the newsroom", "halt and catch fire", "people of earth", "impractical jokers"];
+var topics = ["impractical jokers", "people of earth", "halt and catch fire", "the newsroom", "mr. robot", "workaholics", "vice principals", "silicon valley", "the office"];
 
 var offset = 0; // Initialize image results returned to 0. This will be changed later to return different sets of images.
 
@@ -21,7 +21,7 @@ function createButtons() {
 		// Display the show name on the button.
 		button.html(topics[i]);
 		// Add the button to the buttons display div.
-		$("#buttons-display").append(button);
+		$("#buttons-display").prepend(button);
 
 	}
 }
@@ -120,5 +120,17 @@ $("#add-giphy").on("click", function(event) {
 $(document).on("click", ".tvShow", function() {
 	// Store the show-name attribute in a variable to use in the API query.
 	showName = $(this).attr("show-name");
+	
+	for (var i = 0; i < topics.length; i++) {
+		if ($(".tvShow").hasClass("active")) {
+			$(".tvShow").removeClass("active");
+		}
+	}
+	$(this).addClass("active");
 	callAPI(showName);
+});
+
+$(document).on("click", "#add-giphy", function() {
+	// $(".tvShow").first().removeClass("btn-primary");
+	$(".tvShow").first().addClass("active");
 });
