@@ -13,6 +13,8 @@ var showName = null;
 
 // Create a button for each tv show in the topics array.
 function createButtons() {
+	// Empty the buttons display view so there are no duplicates as new ones are added via user input.
+	$("#buttons-display").empty();
 	// Loop thru the array of tv shows.
 	for (var i = 0; i < topics.length; i++) {
 		// Dynamically generate a button.
@@ -108,6 +110,25 @@ $(".prev").on("click", function() {
 });
 
 $(".tvShow").on("click", function() {
+	// Store the show-name attribute in a variable to use in the API query.
+	showName = $(this).attr("show-name");
+	callAPI(showName);
+});
+
+// When Search button is clicked, perform this function...
+$("#add-giphy").on("click", function(event) {
+	// Prevent form from submitting on click.
+	event.preventDefault();
+	// Store user input in a variable.
+	var giph = $("#giphy-input").val().trim();
+	// Add user input to topics array to be displayed as a new button.
+	topics.push(giph);
+	// Display the new set of buttons.
+	createButtons();
+});
+
+// Document on click function to listen for dynamically added user input.
+$(document).on("click", ".tvShow", function() {
 	// Store the show-name attribute in a variable to use in the API query.
 	showName = $(this).attr("show-name");
 	callAPI(showName);
