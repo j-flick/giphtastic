@@ -8,21 +8,48 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
 	<!-- Custom styles -->
 	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
+	<!-- Fonts -->
+	<link href="https://fonts.googleapis.com/css?family=Slackey|Cutive+Mono|Patua+One|Poppins" rel="stylesheet">
 	<!-- jQuery CDN -->
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
 </head>
 <body>
-	<div class="container">
-		<h1>Giphtastic TV Shows!</h1>
-
-		<!-- Buttons displayed here -->
-		<div id="buttons-display">
-		</div>
-
-		<!-- Images displayed here -->
-		<div id="giph-display">
+	<div class="container top-container">
+		<div class="row">
+			<!-- <div class="col-xs-12 col-sm-4"> -->
+			<div class="col-12">
+				<h1 class="text-center">Giphtastic!</h1>
+			</div>
+<!--			<div class="col-8">
+				<p id="tagline">a Fantastic Waste of Time!</p>
+			</div> -->
 		</div>
 	</div>
+	<div class="container outside-container">
+		<div class="main-container">
+			<!-- Buttons displayed here -->
+			<div id="buttons-display">
+			</div>
+
+			<!-- Images displayed here -->
+			<div id="giph-display" class="row">
+			</div>
+
+			<div class="row">
+				<!-- Previous and Next buttons -->
+				<div id="prevNext-buttons" class="col-12">
+					<button class="prev btn btn-primary">Previous</button>
+					<button class="next btn btn-primary float-right">Next</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<footer class="footer">
+		<div class="container">
+			<img src="assets/images/giphy-logo.png" width="200" class="mx-auto d-block" alt="Powered by Giphy">
+			<p class="text-center text-muted">&copy;Copyright 2017 Justin Flick</p>
+		</div>
+	</footer>
 
 
 	<script type="text/javascript" src="assets/javascript/app.js"></script>

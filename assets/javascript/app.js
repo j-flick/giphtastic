@@ -6,10 +6,10 @@
 // Create array of tv shows.
 var topics = ["the office", "silicon valley", "vice principals", "workaholics", "mr. robot", "the newsroom", "halt and catch fire", "people of earth"];
 
-// Variables to hold animated and still states of gifs.
-// var animated;
-// var still;
-var stillArray = [];
+var offset = 0; // Initialize image results returned to 0. This will be changed later to return different sets of images.
+
+// Initialize showName to null.
+var showName = null;
 
 // Create a button for each tv show in the topics array.
 function createButtons() {
@@ -31,16 +31,15 @@ function createButtons() {
 
 createButtons();
 
-// When button is clicked, display 10 non-animated gifs from Giphy API.
-$("button").on("click", function() {
-	// Store the show-name attribute in a variable to use in the API query.
-	var showName = $(this).attr("show-name");
-	// Setup URL to query the API with the tv show name and limit records returned to 10.
-	var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + showName + "&api_key=dc6zaTOxFJmzC&limit=10";
-	// Empty the giph-display div to fill with new content when a button is clicked.
-	$("#giph-display").empty();
+// Function to call Giphy API displaying 10 non-animated gifs.
+function callAPI(show) {
 
-	$.ajax({ url: queryURL, method: "GET" })
+		// Setup URL to query the API with the tv show name and limit records returned to 10.
+		var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + show + "&api_key=dc6zaTOxFJmzC&limit=10&offset=" + offset;
+		// Empty the giph-display div to fill with new content when a button is clicked.
+		$("#giph-display").empty();
+
+		$.ajax({ url: queryURL, method: "GET" })
 		.done(function(response) {
 			// Store the returned array in a variable for easier access in the for loop.
 			var giphyDataArray = response.data;
@@ -48,11 +47,11 @@ $("button").on("click", function() {
 			for (var i =0; i < giphyDataArray.length; i++) {
 				// console.log(giphyDataArray[i]);
 				// Create a div to hold the returned giphy image.
-				var giphDiv = $("<div class='giphy'>");
+				var giphDiv = $("<div class='giphy col-sm-6 col-md-4'>");
 				// Store the rating of the image in a variable.
 				var rating = giphyDataArray[i].rating;
 				// Create an element to display the rating on the page.
-				var p = $("<p>").html("Rating: " + rating.toUpperCase());
+				var p = $("<p class='p-rating'>").html("Rating: <span class='rating'>" + rating.toUpperCase() + "</span>");
 				// Dynamically create IMG element to display the giphy image.
 				var tvGiph = $("<img>");
 				// Add a src attribute to the img with a value of the fixed width still from the returned giphy array.
@@ -61,6 +60,7 @@ $("button").on("click", function() {
 				tvGiph.attr("still", giphyDataArray[i].images.fixed_width_still.url);
 				// Add an attribute to hold an animated data-state for the gif.
 				tvGiph.attr("animated", giphyDataArray[i].images.fixed_width.url);
+				tvGiph.addClass("giphImage");
 				// Append the img and paragraph with the image rating to the giphDiv.
 				giphDiv.append(tvGiph, p);
 				// Add the newly created giphDiv to display within the giph-display div on the page.
@@ -77,5 +77,38 @@ $("button").on("click", function() {
 				});
 			}
 		});
+		// Show Previous and Next buttons below display of 10 gifs to continue displaying new (or previous) results returned from the API.
+		$("#prevNext-buttons").show();
+}
+
+// When the Next button is clicked...
+$(".next").on("click", function() {
+	// If showName is true add 10 to the offset value to use in the query to get the next 10 results from the API.
+	if (showName) {
+		offset += 10;
+		callAPI(showName);
+	}
 });
 
+// When the Previous button is clicked...
+$(".prev").on("click", function() {
+	// If showName is true...
+	if (showName) {
+		// Set the offset value to 0 if we are already at the beginning of the returned results.
+		if (offset - 10 < 0) {
+			offset = 0;
+		}
+		// Otherwise, subtract 10 from the offset value used in the queryURL to go back and display the previous 10 gifs returned from the API.
+		else {
+			offset -= 10
+		}
+
+		callAPI(showName);
+	}
+});
+
+$(".tvShow").on("click", function() {
+	// Store the show-name attribute in a variable to use in the API query.
+	showName = $(this).attr("show-name");
+	callAPI(showName);
+});
