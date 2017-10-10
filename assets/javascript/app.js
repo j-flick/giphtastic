@@ -83,8 +83,6 @@ $(".next").on("click", function() {
 	// If showName is true add 10 to the offset value to use in the query to get the next 10 results from the API.
 	if (showName) {
 		offset += 10;
-		// Prevent jump to top to allow smooth scrolling.
-		event.preventDefault();
 		// Smooth scroll to the top of the page.
 		$("html, body").animate({ scrollTop: 0 }, 600);
 		callAPI(showName);
@@ -106,8 +104,6 @@ $(".prev").on("click", function() {
 			offset -= 10
 		}
 
-		// Prevent jump to top to allow smooth scrolling.
-		event.preventDefault();
 		// Smooth scroll to the top of the page.
 		$("html, body").animate({ scrollTop: 0 }, 600);
 		callAPI(showName);
