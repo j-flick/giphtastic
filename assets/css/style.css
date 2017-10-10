@@ -22,9 +22,8 @@
 	padding-top: 10px;
 }
 
-.center-form {
-	margin: 0 auto;
-	width: 80%;
+.form-control {
+	margin-bottom: 5px;
 }
 
 h1 {

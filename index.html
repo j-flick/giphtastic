@@ -35,23 +35,21 @@
 				Click on a gif to animate it!
 			</p>
 
-			<div class="center-form">
-				<!-- User input form, search Giphy API -->
-				<form>
-					<div class="form-group row">
-						<div class="col-8">
-							<input type="text" class="form-control" id="giphy-input" placeholder="Search for gifs...">
-						</div>
-						<div class="col-4">
-							<!-- Button triggers new user input search (query) term to be added -->
-							<!-- role="button" for screen readers -->
-							<button id="add-giphy" type="submit" class="btn btn-secondary" role="button">
-								<i class="fa fa-search-plus" aria-hidden="true"></i> Search
-							</button>
-						</div>
+			<!-- User input form, search Giphy API -->
+			<form>
+				<div class="form-group row">
+					<div class="col-sm-8 ml-auto">
+						<input type="text" class="form-control" id="giphy-input" placeholder="Search for gifs...">
 					</div>
-				</form>
-			</div>
+					<div class="col-sm-2 mr-auto">
+						<!-- Button triggers new user input search (query) term to be added -->
+						<!-- role="button" for screen readers -->
+						<button id="add-giphy" type="submit" class="btn btn-secondary mx-auto" role="button">
+							<!-- <i class="fa fa-search-plus" aria-hidden="true"></i> --> Search
+						</button>
+					</div>
+				</div>
+			</form>
 
 			<!-- Buttons displayed here -->
 			<div id="buttons-display">
