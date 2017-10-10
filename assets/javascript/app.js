@@ -1,7 +1,8 @@
 // Create array of tv shows.
 var topics = ["impractical jokers", "people of earth", "halt and catch fire", "the newsroom", "mr. robot", "workaholics", "vice principals", "silicon valley", "the office"];
 
-var offset = 0; // Initialize image results returned to 0. This will be changed later to return different sets of images.
+// Initialize image results returned to 0. This will be changed later to return different sets of images.
+var offset = 0;
 
 // Initialize showName to null.
 var showName = null;
@@ -42,7 +43,6 @@ function callAPI(show) {
 			var giphyDataArray = response.data;
 			// Loop thru the returned array and display on the page.
 			for (var i =0; i < giphyDataArray.length; i++) {
-				// console.log(giphyDataArray[i]);
 				// Create a div to hold the returned giphy image.
 				var giphDiv = $("<div class='giphy col-sm-6 col-md-4'>");
 				// Store the rating of the image in a variable.
@@ -83,6 +83,10 @@ $(".next").on("click", function() {
 	// If showName is true add 10 to the offset value to use in the query to get the next 10 results from the API.
 	if (showName) {
 		offset += 10;
+		// Prevent jump to top to allow smooth scrolling.
+		event.preventDefault();
+		// Smooth scroll to the top of the page.
+		$("html, body").animate({ scrollTop: 0 }, 600);
 		callAPI(showName);
 	}
 });
@@ -94,12 +98,18 @@ $(".prev").on("click", function() {
 		// Set the offset value to 0 if we are already at the beginning of the returned results.
 		if (offset - 10 < 0) {
 			offset = 0;
+			// Display modal when the offset is 0.
+			$("#atBeginning").modal("show");
 		}
 		// Otherwise, subtract 10 from the offset value used in the queryURL to go back and display the previous 10 gifs returned from the API.
 		else {
 			offset -= 10
 		}
 
+		// Prevent jump to top to allow smooth scrolling.
+		event.preventDefault();
+		// Smooth scroll to the top of the page.
+		$("html, body").animate({ scrollTop: 0 }, 600);
 		callAPI(showName);
 	}
 });
@@ -110,6 +120,10 @@ $("#add-giphy").on("click", function(event) {
 	event.preventDefault();
 	// Store user input in a variable.
 	var giph = $("#giphy-input").val().trim();
+	// If the search field is empty, do not add to the topics array or create new button.
+	if (giph === "") {
+		return;
+	}
 	// Add user input to topics array to be displayed as a new button.
 	topics.push(giph);
 	// Display the new set of buttons.
@@ -126,6 +140,7 @@ $(document).on("click", ".tvShow", function() {
 			$(".tvShow").removeClass("active");
 		}
 	}
+	// Add an active class to show the currently selected button.
 	$(this).addClass("active");
 	callAPI(showName);
 });
